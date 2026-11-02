@@ -1,4 +1,4 @@
-name: Validate technical contributions
+﻿name: Validate technical contributions
 on:
   pull_request:
     branches: [main]
@@ -19,7 +19,7 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          git fetch --no-tags --depth=1 origin "$BASE_SHA"
+          git fetch --no-tags --depth=1 origin "$BASE_SHA" "$HEAD_SHA"
           changed=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
           printf '%s\n' "$changed"
           if printf '%s\n' "$changed" | grep -Ei '(^|/)(constitution|charter|council-decisions)(/|\.|$)'; then
@@ -31,3 +31,4 @@ jobs:
           test -s README.md
           test -s AGENTS.md
           test -s CONTRIBUTING.md
+
