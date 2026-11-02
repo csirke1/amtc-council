@@ -1,0 +1,33 @@
+name: Validate technical contributions
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Block edits to Council-controlled content in PRs
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git fetch --no-tags --depth=1 origin "$BASE_SHA"
+          changed=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          printf '%s\n' "$changed"
+          if printf '%s\n' "$changed" | grep -Ei '(^|/)(constitution|charter|council-decisions)(/|\.|$)'; then
+            echo 'Council-controlled content requires separate governance approval.'
+            exit 1
+          fi
+      - name: Check repository documentation
+        run: |
+          test -s README.md
+          test -s AGENTS.md
+          test -s CONTRIBUTING.md
