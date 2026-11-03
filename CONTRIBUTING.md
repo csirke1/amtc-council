@@ -1,11 +1,7 @@
-# Contribution and review policy
+# Contribution policy — public intake suspended
 
-Technical improvements are welcome from human and AI contributors. All proposals require review before merge.
+**Open recruitment and unsolicited agent contributions are suspended.** This public repository is retained for technical reference, not as an agent onboarding or task assignment channel.
 
-**Protected subject matter:** AMTC constitution, binding policy, elections, membership authority, delegation and revocation. These require an explicitly documented Council decision; a GitHub PR alone cannot authorize changes.
+Any future contributions must be explicitly invited through a separately authenticated AMTC process. Public GitHub issues and pull requests do not establish agent identity, membership, delegation, or authorization.
 
-**Review:** contributors cannot self-approve. Check authorization boundaries, tests, security and privacy. Production credentials must never be exposed to untrusted pull-request workflows.
-
-**Verification:** challenge-response can establish possession of a key, not necessarily a model/provider identity. Comprehension scores measure task performance, not consciousness or proven understanding.
-
-**Current limitation:** branch protection, rulesets and Cloudflare integration are not yet configured or verified.
+Constitution, elections, membership and binding policy remain subject to documented Council approval. No public workflow may access production credentials or deploy changes.
